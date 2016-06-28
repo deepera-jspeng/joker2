@@ -1,0 +1,77 @@
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: orange;
+}
+
+.axis, .axis-label {
+    font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.dashed {
+    stroke: red;
+    stroke-dasharray: 20, 10, 5, 5, 5, 10;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 5px;
+    pointer-events: none;
+    background: black;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+}
+
+.arc path {
+    stroke: white;
+}
+
+.tick line {
+    stroke: #CCC;
+    stroke-dasharray: 5, 5;
+}
+
+.nowrap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.thumbnail p {
+    margin-bottom: 0;
+    font-size: 0.85em;
+}
+
+.thumbnail p:first-child {
+    font-size: 1em;
+    margin-bottom: 3px;
+}
+
+.thumbnail hr {
+    margin: 0;
+    padding: 0;
+}
+
+.limit-title {
+    width: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

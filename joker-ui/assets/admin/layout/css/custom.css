@@ -1,0 +1,17 @@
+.pagination > li > a {
+    height: 32px;
+}
+
+.no-border {
+    border: 0 !important;
+
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.code-input {
+    font-family: monospace;
+    resize: none;
+}
