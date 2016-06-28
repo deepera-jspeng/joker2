@@ -2,9 +2,7 @@
 ## First Time Installation Guide
 1. Prepare joker project files on your own machine:
 	```
-	tar -zxvf joker-db.tar.gz
-	git clone git@github.com:valency/joker-api.git
-	git clone git@github.com:valency/joker-ui.git
+	git clone git@github.com:valency/joker2.git
 	```
 	You should have three directories: `joker-db`, `joker-api`, and `joker-ui`.
 	
