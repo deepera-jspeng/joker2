@@ -22,11 +22,11 @@
 </div>
 <div class="clearfix"></div>
 <div class="page-container">
-    <?php echo curl($PROTOCOL . $DOMAIN . '/joker/components/sidebar.php?page=' . $page . '&user=' . $_COOKIE['joker_username']); ?>
+    <?php echo curl($PROTOCOL . $DOMAIN . '/joker2/components/sidebar.php?page=' . $page . '&user=' . $_COOKIE['joker_username']); ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
-            <?php echo curl($PROTOCOL . $DOMAIN . '/joker/components/breadcrumb.php?page=' . $page); ?>
+            <?php echo curl($PROTOCOL . $DOMAIN . '/joker2/components/breadcrumb.php?page=' . $page); ?>
             <!-- BEGIN PAGE -->
             <div class="row">
                 <div class="col-md-12">
