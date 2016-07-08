@@ -149,3 +149,25 @@ class Customer(models.Model):
     class Meta:
         managed = False
         db_table = 'grow_or_decline'
+
+
+class ActiveCount(models.Model):
+    active_customers_pytd = models.IntegerField(blank=True, null=True)
+    active_customers_ytd = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'm1_active_customers'
+
+
+class TurnoverGrowthRate(models.Model):
+    meeting_id = models.IntegerField(blank=True, null=True)
+    turnover_previous_season = models.FloatField(blank=True, null=True)
+    turnover_this_season = models.FloatField(blank=True, null=True)
+    total_turnover_pytd = models.FloatField(blank=True, null=True)
+    total_turnover_ytd = models.FloatField(blank=True, null=True)
+    cumulative_growth_rate_of_total_turnover = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'm1_turnover_growth_rate'

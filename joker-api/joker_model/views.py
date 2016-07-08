@@ -35,3 +35,22 @@ def histogram(request):
         })
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def active_count(request):
+    output = dict()
+    for column_name in ActiveCount._meta.get_all_field_names():
+        if column_name != 'id':
+            stat = ActiveCount.objects.values_list(column_name, flat=True)
+            output[column_name] = stat
+    return Response(output)
+
+
+@api_view(['GET'])
+def turnover_growth_rate(request):
+    output = dict()
+    for column_name in TurnoverGrowthRate._meta.get_all_field_names():
+        if column_name != 'id':
+            stat = TurnoverGrowthRate.objects.values_list(column_name, flat=True)
+            output[column_name] = stat
+    return Response(output)

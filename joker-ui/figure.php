@@ -29,6 +29,20 @@
         <div class="page-content">
             <?php echo curl($PROTOCOL . $DOMAIN . '/joker2/components/breadcrumb.php?page=' . $page); ?>
             <!-- BEGIN PAGE -->
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Segment</span>
+                        <select id="statistics" class="form-control">
+                            <option value="70_75">70 & 75 (MV &ge; 45 YO)</option>
+                            <option value="2">Model 2</option>
+                            <option value="4">Model 4</option>
+                        </select>
+                        <span class="input-group-addon btn red" onclick="cust_search();">ID Search</span>
+                    </div>
+                </div>
+            </div>
+            <hr/>
             <div id="figure-container"></div>
             <!-- END PAGE -->
         </div>

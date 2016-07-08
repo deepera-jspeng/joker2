@@ -1,6 +1,6 @@
 function check_login(callback) {
     if (Cookies.get('joker_id') == undefined || Cookies.get('joker_id') == null) {
-        window.location.href = "/joker/login.php";
+        window.location.href = "/joker2/login.php";
     } else {
         $.get(API_SERVER + "auth/verify/?id=" + Cookies.get('joker_id') + "&ticket=" + Cookies.get('joker_ticket'), function (r) {
             if (callback) callback();
@@ -27,7 +27,7 @@ function check_login(callback) {
                 }
             }
         }).fail(function () {
-            window.location.href = "/joker/login.php";
+            window.location.href = "/joker2/login.php";
         });
     }
 }
@@ -36,7 +36,7 @@ function logout() {
     Cookies.remove("joker_id");
     Cookies.remove("joker_username");
     Cookies.remove("joker_ticket");
-    window.location.href = "/joker/login.php";
+    window.location.href = "/joker2/login.php";
 }
 
 function change_password() {
