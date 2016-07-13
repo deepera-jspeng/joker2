@@ -15,10 +15,24 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
+def get_all_field_values(request):
+    if "field" in  request.GET:
+        field = request.GET["field"]
+        field_values = Customer.objects.values_list(field, flat=True).distinct()
+        return Response(field_values)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
 def histogram(request):
     if "field" in request.GET and "categorical" in request.GET:
         field = request.GET["field"]
-        customer = Customer.objects.values_list(field, flat=True)
+        if "segment" in request.GET:
+            segment = request.GET["segment"].split(",")
+            customer = Customer.objects.filter(segment__in=segment).values_list(field, flat=True)
+        else:
+            customer = Customer.objects.values_list(field, flat=True)
         if request.GET["categorical"] == "true":
             hist = numpy.divide(Counter(customer).values(), [float(len(customer))])
             bin_edges = Counter(customer).keys()

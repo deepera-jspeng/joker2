@@ -3,6 +3,20 @@ $(document).ready(function () {
     Layout.init();
     QuickSidebar.init();
     check_login();
+    var segment = [];
+    $.ajax({
+        type: "GET",
+        url: API_SERVER + "model/retrieve_field_values/?field=segment",
+        async: false,
+        success: function(data) {
+            for (var i = 0; i < data.length; i++) {
+                segment.push({id: data[i].toString(), text: data[i].toString()});
+            }
+        }
+    });
+    $("#select_segments").select2({
+        tags: segment
+    });
     init_widget();
     draw_figures();
 });
@@ -12,16 +26,16 @@ function draw_figures() {
     stat_figure_histogram("age", false, "Age", "Distribution of Customers' Age", {
         x: "Customers' Age",
         y: "Probabilistic Distribution Function"
-    }, 1, 0, [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]);
+    }, 0, null, [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]);
     stat_figure_active("Active Customers", "Number of Active Customers", {
         x: "Year",
         y: "Number of Active Customers"
     });
     stat_figure_growth_rate_of_turnover("Growth Rate of Turnover (YTD vs. PYTD)", "Growth Rate of Turnover (YTD vs. PYTD)", {
-            x: "Meeting ID",
-            y: "Cumulative Growth Rate of Total Turnover (YTD vs. PYTD)",
-            keys: ["Turnover (Previous Season)", "Turnover (This Season)", "Total Turnover (PYTD)", "Total Turnover (YTD)"]
-        }, 0.05);
+        x: "Meeting ID",
+        y: "Cumulative Growth Rate of Total Turnover (YTD vs. PYTD)",
+        keys: ["Turnover (Previous Season)", "Turnover (This Season)", "Total Turnover (PYTD)", "Total Turnover (YTD)"]
+    }, 0.05);
 }
 
 var tooltip = d3.select(".page-container").append("div").attr("class", "tooltip").style("opacity", 0);
@@ -60,13 +74,14 @@ function generate_portlet_meta(fig_id, title, label, label_type) {
     return html;
 }
 
-function stat_figure_histogram(column, categorical, title, fig_title, label, data_digits, bins) {
+function stat_figure_histogram(column, categorical, title, fig_title, label, data_digits, segment, bins) {
     var fig_id = guid();
+    //$("#figure-container").html("<span class='font-red'>" + API_SERVER + "model/histogram/?field=" + column + "&categorical=" + categorical + (segment ? "&segment=" + segment : "") + (bins ? "&bins=" + bins.join() : "") + "</span>");
     add_portlet("#figure-container", title, generate_portlet_meta(fig_id, fig_title, label, {
         x: "X Axis",
         y: "Y Axis"
     }), fig_id, 4, function () {
-        $.get(API_SERVER + "model/histogram/?field=" + column + "&categorical=" + categorical + (bins ? "&bins=" + bins.join() : ""), function (data) {
+        $.get(API_SERVER + "model/histogram/?field=" + column + "&categorical=" + categorical + (segment ? "&segment=" + segment : "") + (bins ? "&bins=" + bins.join() : ""), function (data) {
             var src = [];
             for (var i = 0; i < data["hist"].length; i++) {
                 src.push({
@@ -80,6 +95,30 @@ function stat_figure_histogram(column, categorical, title, fig_title, label, dat
             $("#figure-div-" + fig_id).html("<span class='font-red'>Loading schema '" + column + "' failed!</span>");
         });
     });
+}
+
+function segment_histogram() {
+    var input = $("#select_segments").select2('data');
+    if (input.length > 0) {
+        var segment = [];
+        for (var i = 0; i < input.length; i++) {
+            segment.push(input[i].id);
+        }
+        $("#figure-container>div").html("");
+        stat_figure_histogram("age", false, "Age", "Distribution of Customers' Age", {
+            x: "Customers' Age",
+            y: "Probabilistic Distribution Function"
+        }, 0, segment.join(","), [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]);
+        stat_figure_active("Active Customers", "Number of Active Customers", {
+            x: "Year",
+            y: "Number of Active Customers"
+        });
+        stat_figure_growth_rate_of_turnover("Growth Rate of Turnover (YTD vs. PYTD)", "Growth Rate of Turnover (YTD vs. PYTD)", {
+            x: "Meeting ID",
+            y: "Cumulative Growth Rate of Total Turnover (YTD vs. PYTD)",
+            keys: ["Turnover (Previous Season)", "Turnover (This Season)", "Total Turnover (PYTD)", "Total Turnover (YTD)"]
+        }, 0.05);
+    }
 }
 
 function stat_figure_active(title, fig_title, label) {

@@ -33,12 +33,8 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon">Segment</span>
-                        <select id="statistics" class="form-control">
-                            <option value="70_75">70 & 75 (MV &ge; 45 YO)</option>
-                            <option value="2">Model 2</option>
-                            <option value="4">Model 4</option>
-                        </select>
-                        <span class="input-group-addon btn red" onclick="cust_search();">ID Search</span>
+                        <input type="hidden" id="select_segments" class="form-control select2" value=""/>
+                        <span class="input-group-addon btn red" onclick="segment_histogram();">View Results</span>
                     </div>
                 </div>
             </div>
